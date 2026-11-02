@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <!--
 ===============================================================================
-P2PCHAT — GUÍA DE MANTENIMIENTO PARA DESARROLLADORES E IA
+YorHact — GUÍA DE MANTENIMIENTO PARA DESARROLLADORES E IA
 ===============================================================================
 
 OBJETIVO
@@ -83,7 +83,7 @@ FIN DE LA GUÍA
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="theme-color" content="#0f172a">
-    <title>P2P Workspace Pro - Editor & Chat Colaborativo</title>
+    <title>YorHact - Editor & Chat Colaborativo</title>
 
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
@@ -1323,10 +1323,10 @@ FIN DE LA GUÍA
                 </div>
                 <div>
                     <h1 class="text-lg font-bold leading-tight flex items-center gap-2">
-                        P2P Workspace Pro
+                        YorHact
                         <span id="spongebobBadge" class="hidden text-xs px-2 py-0.5 rounded-full font-bold" style="background: var(--color-primary); color: var(--on-primary);">🧽 Bikini Bottom Edition</span>
                     </h1>
-                    <p class="text-xs muted bar-sub">Editor colaborativo P2P (WebRTC + CRDT), sin servidor central</p>
+                    
                 </div>
             </div>
 
@@ -1500,9 +1500,6 @@ FIN DE LA GUÍA
                             </div>
                         </section>
 
-                <footer class="bt app-foot text-center muted">
-            <p>P2P Workspace Pro • WebRTC + Yjs • Sin backend • Tus datos solo viven en los navegadores conectados</p>
-        </footer>
             </aside>
 
             <!-- Centro: editor / pizarra -->
@@ -1725,7 +1722,7 @@ FIN DE LA GUÍA
     <!-- Lógica principal. Mantener sincronizados estado, interfaz y protocolo P2P entre anfitrión e invitados. -->
     <script type="module">
     /* =====================================================================
-       P2P Workspace Pro
+       YorHact
        - Topología en estrella: el anfitrión acepta conexiones y retransmite.
        - Texto sincronizado con Yjs (CRDT). Si Yjs no carga, se usa "último
          que escribe gana" como alternativa.
@@ -2970,7 +2967,7 @@ FIN DE LA GUÍA
     $('joinForm').addEventListener('submit', (e) => { e.preventDefault(); joinRoom(remoteIdInput.value, 'dm'); });
     $('copyMyIdBtn').addEventListener('click', () => { if (myId) copyWithToast(myId, '¡ID copiado!'); });
     $('copyInviteLinkBtn').addEventListener('click', () => { if (myId) copyWithToast(inviteUrl(), '¡Enlace de invitación copiado!'); });
-    if (navigator.share) { $('shareBtn').classList.remove('hidden'); $('shareBtn').addEventListener('click', () => { if (myId) navigator.share({ title: 'P2P Workspace Pro', text: 'Únete a mi sala', url: inviteUrl() }).catch(() => {}); }); }
+    if (navigator.share) { $('shareBtn').classList.remove('hidden'); $('shareBtn').addEventListener('click', () => { if (myId) navigator.share({ title: 'YorHact', text: 'Únete a mi sala', url: inviteUrl() }).catch(() => {}); }); }
     $('editMyIdBtn').addEventListener('click', async () => {
         const v = await dialog({ title: 'Personalizar mi ID', message: 'Solo letras, números, guiones y guiones bajos (mín. 3). Déjalo vacío para uno aleatorio. Un ID corto es fácil de adivinar: considera activar «Aprobar conexiones».', input: store.get('p2p_custom_id') || '', placeholder: 'mi-sala-privada' });
         if (v === null) return;
