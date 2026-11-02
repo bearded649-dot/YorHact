@@ -1234,13 +1234,90 @@ FIN DE LA GUÍA
 [data-theme="majora"]{--bg-main:#1a0f2e;--bg-card:#261942;--border-color:#7a5bd0;--color-primary:#e0c13a;--color-primary-hover:color-mix(in srgb,#e0c13a 80%,#fff);--on-primary:#1b1030;--color-text:#efe6ff;--color-muted:#a898d0;--font-family:'Palatino Linotype','Book Antiqua',Georgia,serif;color-scheme:dark;--radius:6px;--radius-sm:6px;--btn-radius:6px;--field-radius:6px;--bubble-radius:6px;--body-bg:radial-gradient(circle at 78% 24%,rgba(255,230,140,.4) 0 7vmin,rgba(255,200,90,.14) 7.2vmin 16vmin,transparent 28vmin),radial-gradient(ellipse at 50% 120%,rgba(210,60,40,.3),transparent 60%),linear-gradient(180deg,#0e0720,#2a1650 70%,#4a1f3a);--card-bg:#261942;--card-shadow:0 0 0 1px #000,0 10px 28px -12px rgba(150,80,255,.5);--header-bg:#261942;--header-fg:#efe6ff;--btn-primary-bg:#e0c13a;--btn-primary-hover-bg:color-mix(in srgb,#e0c13a 80%,#fff);--btn-primary-border:#7a5bd0;--btn-ghost-bg:color-mix(in srgb,#efe6ff 9%,transparent);--btn-ghost-hover-bg:color-mix(in srgb,#efe6ff 18%,transparent);--btn-ghost-border:#7a5bd0;--btn-border:#7a5bd0;--btn-shadow:0 2px 0 #7a6410;--field-bg:color-mix(in srgb,#efe6ff 6%,#261942);--field-border:#7a5bd0;--bubble-me-bg:#e0c13a;--bubble-me-fg:#1b1030;--bubble-them-bg:color-mix(in srgb,#efe6ff 10%,transparent);--opt-bg:#261942;--chat-bg:transparent;--msg-anim:msgMask;--msg-dur:.7s;--msg-ease:cubic-bezier(.2,.8,.2,1)}
 [data-theme="majora"] :is(.card,.field,.btn){border-width:2px}[data-theme="majora"] .app-header{border-bottom-color:#7a5bd0!important}[data-theme="majora"] .app-header h1{font-weight:800;color:#e0c13a;text-transform:uppercase;letter-spacing:.2em}[data-theme="majora"] .app-header h1::before{content:'🎭';font-size:.8em}[data-theme="majora"] .app-header h1::after{content:'⌛';color:#e5532d;font-size:.8em;animation:maskTick 2s ease-in-out infinite}[data-theme="majora"] .bubble.them{border-left:3px solid #e5532d}[data-theme="majora"] .mention{color:#e5532d;background:color-mix(in srgb,#e5532d 18%,transparent)}[data-theme="majora"] ::-webkit-scrollbar-thumb{background:#7a5bd0;border-radius:6px}[data-theme="majora"] .menu-tab.active{box-shadow:inset 0 -3px 0 #e5532d}[data-theme="majora"] .app-header h1{text-shadow:0 0 14px rgba(224,193,58,.45)}@keyframes maskTick{50%{transform:rotate(180deg)}}@keyframes msgMask{from{opacity:0;transform:scale(.8) rotate(calc(var(--wob)*-4));filter:hue-rotate(80deg) brightness(.4) blur(4px)}50%{opacity:1;filter:hue-rotate(-30deg) brightness(1.6) drop-shadow(0 0 10px #e5532d)}to{transform:none;filter:none}}[data-theme="majora"] body::after{content:'';position:fixed;left:70%;top:6vh;width:18vmin;height:18vmin;border-radius:50%;z-index:-1;pointer-events:none;background:radial-gradient(circle at 35% 40%,#2a1b10 0 7%,transparent 8%),radial-gradient(circle at 65% 40%,#2a1b10 0 7%,transparent 8%),radial-gradient(ellipse at 50% 72%,#2a1b10 0 11%,transparent 12%),radial-gradient(circle,#f6e9b8,#d9a441);box-shadow:0 0 60px rgba(255,210,100,.5);animation:moonFall 90s linear infinite alternate}@keyframes moonFall{from{transform:translateY(0) scale(1)}to{transform:translateY(16vh) scale(1.35)}}
     </style>
+
+    <!-- v7: nueva estructura de la página. Esta capa solo reparte el espacio; colores, bordes, sombras, radios y tipografía los siguen poniendo los temas (tokens). -->
+    <style id="ui-v7-layout">
+        :root { --header-h: 3.6rem; --nav-h: 4rem; --gap: .75rem; --side-w: 300px; --chat-w: 360px; }
+
+        /* ----- Barra superior ----- */
+        .app-header { padding: .5rem .9rem !important; }
+        .app-bar { display: flex; align-items: center; gap: .75rem; width: 100%; }
+        .brand { display: flex; align-items: center; gap: .7rem; min-width: 0; }
+        .brand h1 { white-space: nowrap; }
+        .bar-actions { margin-left: auto; display: flex; align-items: center; gap: .5rem; flex-wrap: nowrap; min-width: 0; }
+        .panel-toggle { display: none; }
+        .panel-toggle[aria-pressed="false"] { opacity: .55; }
+
+        /* ----- Contenedores ----- */
+        .app-main { flex: 1 1 auto; width: 100%; padding: var(--gap); display: flex; flex-direction: column; min-height: 0; }
+        #mainGrid { flex: 1; min-height: 0; width: 100%; }
+        #sidebar { display: flex; flex-direction: column; gap: var(--gap); min-height: 0; }
+        #sidebar > * { flex-shrink: 0; }
+        #sidebar .menu-tabs .menu-tab { flex: 1; justify-content: center; }
+        #sidebar .room-action { width: 100%; }
+        #rosterList { max-height: none; }
+        .app-foot { margin-top: auto; padding: .6rem .25rem .2rem; font-size: .62rem; line-height: 1.4; }
+        #mobileNav { display: none; }
+        .pane-tab { position: relative; flex: 1; flex-direction: column; gap: .15rem; padding: .4rem .25rem; font-size: .68rem; justify-content: center; }
+        .pane-tab.active { background: var(--btn-primary-bg); color: var(--on-primary); border-color: var(--btn-primary-border); }
+        .pane-badge { position: absolute; top: .15rem; left: calc(50% + .45rem); min-width: 1.1rem; padding: 0 .3rem; border-radius: 999px; background: var(--bad); color: #fff; font-size: .62rem; font-weight: 700; line-height: 1.25; text-align: center; }
+        .pane-badge.hidden { display: none; }
+
+        /* ----- Escritorio: tres columnas, la página no hace scroll; cada panel scrollea por dentro ----- */
+        @media (min-width: 1024px) {
+            body { height: 100dvh; overflow: hidden; }
+            #mainGrid { display: grid; grid-template-columns: var(--side-w) minmax(0, 1fr) var(--chat-w); grid-template-rows: minmax(0, 1fr); gap: var(--gap); }
+            #sidebar { grid-column: 1; grid-row: 1; overflow-y: auto; overscroll-behavior: contain; scrollbar-width: thin; padding: 4px; margin: -4px; }
+            #editorSection { grid-column: 2; grid-row: 1; min-height: 0; }
+            #chatPanel { grid-column: 3; grid-row: 1; min-height: 0; }
+            #documentEditor { min-height: 0; }
+            .panel-toggle { display: inline-flex; }
+            #mainGrid.sb-off { grid-template-columns: minmax(0, 1fr) var(--chat-w); }
+            #mainGrid.sb-off > #sidebar { display: none; }
+            #mainGrid.sb-off > #editorSection { grid-column: 1; }
+            #mainGrid.sb-off > #chatPanel { grid-column: 2; }
+            #mainGrid.chat-off { grid-template-columns: var(--side-w) minmax(0, 1fr); }
+            #mainGrid.chat-off > #chatPanel { display: none; }
+            #mainGrid.sb-off.chat-off { grid-template-columns: minmax(0, 1fr); }
+            #mainGrid.sb-off.chat-off > #editorSection { grid-column: 1; }
+        }
+        @media (min-width: 1024px) and (max-width: 1279px) { :root { --side-w: 250px; --chat-w: 310px; } .brand .bar-sub { display: none; } }
+        @media (min-width: 1536px) { :root { --side-w: 320px; --chat-w: 400px; } }
+
+        /* ----- Móvil y tablet: un panel a la vez + navegación inferior ----- */
+        @media (max-width: 1023px) {
+            .app-main { padding: .5rem .5rem calc(var(--nav-h) + .75rem + env(safe-area-inset-bottom)); }
+            #mainGrid { display: block; }
+            #mainGrid > * { display: none; }
+            #mainGrid[data-pane="room"] > #sidebar { display: flex; }
+            #mainGrid[data-pane="editor"] > #editorSection,
+            #mainGrid[data-pane="chat"] > #chatPanel { display: flex; min-height: 0; height: calc(100dvh - var(--header-h) - var(--nav-h) - 1.5rem - env(safe-area-inset-bottom)); }
+            #documentEditor { min-height: 0; }
+            #mobileNav { position: fixed; left: 0; right: 0; bottom: 0; z-index: 45; display: flex; gap: .35rem; padding: .4rem .5rem calc(.4rem + env(safe-area-inset-bottom));
+                         border-width: 1px 0 0 0; border-radius: 0 !important; background: var(--header-bg); color: var(--header-fg);
+                         -webkit-backdrop-filter: blur(14px) saturate(1.4); backdrop-filter: blur(14px) saturate(1.4); }
+            #toast { bottom: calc(var(--nav-h) + .75rem + env(safe-area-inset-bottom)) !important; }
+            .app-foot { padding-bottom: .75rem; }
+        }
+        @media (max-width: 640px) {
+            .app-header { padding: .4rem .6rem !important; }
+            .bar-actions { gap: .35rem; }
+            .brand h1 { font-size: .95rem; }
+            .theme-btn #themeLabel { display: none; }
+        }
+        @media (max-width: 480px) {
+            .brand > div:last-child { display: none; }
+            #statusText { display: none; }
+        }
+    </style>
+
 </head>
 <body class="min-h-screen flex flex-col antialiased overflow-x-hidden">
 
     <!-- ===== Header ===== -->
     <header class="app-header card border-x-0 border-t-0 px-4 py-3 sticky top-0 z-40">
-        <div class="max-w-7xl mx-auto flex flex-col sm:flex-row justify-between items-center gap-3">
-            <div class="flex items-center gap-3">
+        <div class="app-bar">
+            <div class="brand">
                 <div class="p-2 rounded-xl" style="color: var(--color-primary); background: color-mix(in srgb, var(--color-primary) 18%, transparent);">
                     <i data-lucide="zap" class="w-6 h-6"></i>
                 </div>
@@ -1249,11 +1326,11 @@ FIN DE LA GUÍA
                         P2P Workspace Pro
                         <span id="spongebobBadge" class="hidden text-xs px-2 py-0.5 rounded-full font-bold" style="background: var(--color-primary); color: var(--on-primary);">🧽 Bikini Bottom Edition</span>
                     </h1>
-                    <p class="text-xs muted">Editor colaborativo P2P (WebRTC + CRDT), sin servidor central</p>
+                    <p class="text-xs muted bar-sub">Editor colaborativo P2P (WebRTC + CRDT), sin servidor central</p>
                 </div>
             </div>
 
-            <div class="flex flex-wrap items-center gap-2 w-full sm:w-auto justify-between sm:justify-end">
+            <div class="bar-actions">
                 <div class="flex items-center gap-1.5 sub p-1.5 rounded-lg" style="border:1px solid var(--line)">
                     <i data-lucide="palette" class="w-4 h-4 muted"></i>
                     <label for="themeSelect" class="sr-only">Tema</label>
@@ -1332,6 +1409,13 @@ FIN DE LA GUÍA
                     </button>
                 </div>
 
+                <button id="toggleSideBtn" type="button" class="icon-btn sub panel-toggle" style="border:1px solid var(--line); padding:.45rem" title="Mostrar u ocultar el panel de conexión y sala" aria-label="Mostrar u ocultar el panel de conexión y sala" aria-pressed="true">
+                    <i data-lucide="panel-left" class="w-4 h-4"></i>
+                </button>
+                <button id="toggleChatBtn" type="button" class="icon-btn sub panel-toggle" style="border:1px solid var(--line); padding:.45rem" title="Mostrar u ocultar el chat" aria-label="Mostrar u ocultar el chat" aria-pressed="true">
+                    <i data-lucide="panel-right" class="w-4 h-4"></i>
+                </button>
+
                 <button id="soundBtn" class="icon-btn sub" style="border:1px solid var(--line); padding:.45rem" title="Sonido de notificaciones" aria-label="Activar o silenciar sonido">
                     <i data-lucide="volume-2" class="w-4 h-4"></i>
                 </button>
@@ -1349,60 +1433,80 @@ FIN DE LA GUÍA
         </div>
     </header>
 
-    <!-- ===== Contenido principal ===== -->
-    <main class="flex-1 max-w-7xl w-full mx-auto p-4 flex flex-col gap-4">
+    <!-- ===== Área de trabajo: [ conexión + sala ] · [ editor ] · [ chat ] ===== -->
+    <main class="app-main">
+        <div id="mainGrid" data-pane="room">
 
-        <!-- Menú -->
-        <nav class="card rounded-xl overflow-hidden" aria-label="Menú principal">
-            <div class="menu-tabs sub bb px-3 py-2.5" role="tablist">
-                <button class="btn menu-tab" role="tab" data-tab="chat"><i data-lucide="message-circle" class="w-4 h-4"></i><span>Chat</span></button>
-                <button class="btn menu-tab" role="tab" data-tab="rooms"><i data-lucide="door-open" class="w-4 h-4"></i><span>Salas</span></button>
-            </div>
-            <div class="p-4">
-                <!-- Chat: ID del otro usuario -->
-                <div data-panel="chat" class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div class="flex flex-col gap-1.5">
-                        <label for="myIdInput" class="text-xs font-medium flex items-center justify-between">
-                            <span>Tu ID</span>
-                            <span id="myPeerStatus" class="text-[10px] muted">Conectando al servidor de señalización…</span>
-                        </label>
-                        <div class="flex gap-2">
-                            <input type="text" id="myIdInput" readonly class="field flex-1 px-3 py-2 text-xs font-mono select-all" placeholder="Generando…">
-                            <button id="editMyIdBtn" class="btn btn-ghost" title="Personalizar mi ID"><i data-lucide="edit-3" class="w-4 h-4"></i><span class="hidden sm:inline">Editar</span></button>
-                            <button id="copyMyIdBtn" class="btn btn-ghost" title="Copiar ID"><i data-lucide="copy" class="w-4 h-4"></i><span class="hidden sm:inline">Copiar</span></button>
+            <!-- Panel izquierdo: conexión, sala y personas -->
+            <aside id="sidebar" aria-label="Conexión y sala">
+                <nav class="card rounded-xl overflow-hidden" aria-label="Conexión">
+                    <div class="menu-tabs sub bb px-3 py-2.5" role="tablist">
+                        <button class="btn menu-tab" role="tab" data-tab="chat"><i data-lucide="message-circle" class="w-4 h-4"></i><span>Chat</span></button>
+                        <button class="btn menu-tab" role="tab" data-tab="rooms"><i data-lucide="door-open" class="w-4 h-4"></i><span>Salas</span></button>
+                    </div>
+                    <div class="p-3">
+                        <!-- Chat directo: tu ID y el ID del otro usuario -->
+                        <div data-panel="chat" class="flex flex-col gap-3">
+                            <div class="flex flex-col gap-1.5">
+                                <label for="myIdInput" class="text-xs font-medium flex items-center justify-between gap-2">
+                                    <span>Tu ID</span>
+                                    <span id="myPeerStatus" class="text-[10px] muted truncate">Conectando al servidor de señalización…</span>
+                                </label>
+                                <input type="text" id="myIdInput" readonly class="field w-full px-3 py-2 text-xs font-mono select-all" placeholder="Generando…">
+                                <div class="grid grid-cols-2 gap-2">
+                                    <button id="editMyIdBtn" type="button" class="btn btn-ghost justify-center" title="Personalizar mi ID"><i data-lucide="edit-3" class="w-4 h-4"></i><span>Editar</span></button>
+                                    <button id="copyMyIdBtn" type="button" class="btn btn-ghost justify-center" title="Copiar ID"><i data-lucide="copy" class="w-4 h-4"></i><span>Copiar</span></button>
+                                </div>
+                            </div>
+                            <form id="joinForm" class="flex flex-col gap-1.5">
+                                <label for="remoteIdInput" class="text-xs font-medium">ID del otro usuario <span class="muted font-normal block">Chat directo · solo 2 personas</span></label>
+                                <input type="text" id="remoteIdInput" autocomplete="off" spellcheck="false" class="field w-full px-3 py-2 text-xs font-mono" placeholder="Pega aquí el ID del otro usuario…">
+                                <button id="connectBtn" type="submit" class="btn btn-primary justify-center"><i data-lucide="message-circle" class="w-4 h-4"></i><span>Chatear</span></button>
+                            </form>
+                        </div>
+
+                        <!-- Salas de grupo: crear / unirse -->
+                        <div data-panel="rooms" class="hidden flex flex-col gap-2">
+                            <button id="createRoomBtn" type="button" class="btn btn-primary room-action">
+                                <span class="ico"><i data-lucide="plus-circle" class="w-5 h-5"></i></span>
+                                <span><strong>Crear sala</strong><small>Sala de grupo para hasta 8 personas en total, incluido el anfitrión · enlace o QR</small></span>
+                            </button>
+                            <button id="joinRoomBtn" type="button" class="btn btn-ghost room-action">
+                                <span class="ico"><i data-lucide="log-in" class="w-5 h-5"></i></span>
+                                <span><strong>Unirse a sala</strong><small>Entra a un grupo con el código o el enlace de la sala</small></span>
+                            </button>
+                            <p id="roomInfo" class="text-xs muted"></p>
                         </div>
                     </div>
-                    <form id="joinForm" class="flex flex-col gap-1.5">
-                        <label for="remoteIdInput" class="text-xs font-medium">ID del otro usuario <span class="muted font-normal">· chat directo, solo 2 personas</span></label>
-                        <div class="flex gap-2">
-                            <input type="text" id="remoteIdInput" autocomplete="off" spellcheck="false" class="field flex-1 px-3 py-2 text-xs font-mono" placeholder="Pega aquí el ID del otro usuario…">
-                            <button id="connectBtn" type="submit" class="btn btn-primary px-4"><i data-lucide="message-circle" class="w-4 h-4"></i><span>Chatear</span></button>
-                        </div>
-                    </form>
-                </div>
+                </nav>
 
-                <!-- Salas: crear / unirse -->
-                <div data-panel="rooms" class="hidden">
-                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                        <button id="createRoomBtn" type="button" class="btn btn-primary room-action">
-                            <span class="ico"><i data-lucide="plus-circle" class="w-5 h-5"></i></span>
-                            <span><strong>Crear sala</strong><small>Sala de grupo para hasta 8 personas en total, incluido el anfitrión · enlace o QR</small></span>
-                        </button>
-                        <button id="joinRoomBtn" type="button" class="btn btn-ghost room-action">
-                            <span class="ico"><i data-lucide="log-in" class="w-5 h-5"></i></span>
-                            <span><strong>Unirse a sala</strong><small>Entra a un grupo con el código o el enlace de la sala</small></span>
-                        </button>
-                    </div>
-                    <p id="roomInfo" class="mt-3 text-xs muted"></p>
-                </div>
-            </div>
-        </nav>
+                        <section id="roomPanel" class="card rounded-xl overflow-hidden" aria-label="Sala">
+                            <div class="sub bb px-4 py-2 flex items-center justify-between">
+                                <div class="flex items-center gap-2">
+                                    <i data-lucide="users" class="w-4 h-4" style="color: var(--color-primary)"></i>
+                                    <span id="roomTitle" class="text-xs font-semibold">Sala</span>
+                                    <span id="roleBadge" class="chip neutral">Solo tú</span>
+                                </div>
+                                <button id="leaveBtn" class="btn btn-ghost hidden" style="padding:.25rem .6rem"><i data-lucide="log-out" class="w-3.5 h-3.5"></i><span id="leaveLabel">Salir</span></button>
+                            </div>
+                            <ul id="rosterList" class="overflow-y-auto p-2 space-y-1 text-xs"></ul>
+                            <div id="hostSettings" class="bt px-4 py-2.5 space-y-2">
+                                <label class="switch"><span>Aprobar cada conexión nueva</span><input type="checkbox" id="optApprove"></label>
+                                <label class="switch"><span>Solo lectura para invitados</span><input type="checkbox" id="optReadonly"></label>
+                                <div id="banWrap" class="hidden pt-1">
+                                    <p class="text-[11px] font-semibold muted mb-1">Baneados</p>
+                                    <ul id="banList" class="space-y-1 max-h-24 overflow-y-auto"></ul>
+                                </div>
+                            </div>
+                        </section>
 
-        <!-- Editor + columna lateral -->
-        <div id="mainGrid" class="flex-1 grid grid-cols-1 lg:grid-cols-3 gap-4">
+                <footer class="bt app-foot text-center muted">
+            <p>P2P Workspace Pro • WebRTC + Yjs • Sin backend • Tus datos solo viven en los navegadores conectados</p>
+        </footer>
+            </aside>
 
-            <!-- Editor -->
-            <section id="editorSection" class="lg:col-span-2 card rounded-xl flex flex-col overflow-hidden shadow-sm min-h-[480px] lg:h-[680px]" aria-label="Editor colaborativo">
+            <!-- Centro: editor / pizarra -->
+            <section id="editorSection" class="card rounded-xl flex flex-col overflow-hidden" aria-label="Editor colaborativo">
                 <div class="sub bb px-3 py-2 flex flex-wrap items-center justify-between gap-2 shrink-0">
                     <div class="flex items-center gap-2 min-w-0">
                         <i data-lucide="file-text" class="w-4 h-4 shrink-0" style="color: var(--color-primary)"></i>
@@ -1462,31 +1566,8 @@ FIN DE LA GUÍA
                 </div>
             </section>
 
-            <!-- Columna lateral: sala + chat -->
-            <div id="sideCol" class="flex flex-col gap-4 lg:h-[680px] min-h-0" role="complementary" aria-label="Sala y chat">
-                <!-- Sala -->
-                <section class="card rounded-xl shadow-sm shrink-0 overflow-hidden" aria-label="Sala">
-                    <div class="sub bb px-4 py-2 flex items-center justify-between">
-                        <div class="flex items-center gap-2">
-                            <i data-lucide="users" class="w-4 h-4" style="color: var(--color-primary)"></i>
-                            <span id="roomTitle" class="text-xs font-semibold">Sala</span>
-                            <span id="roleBadge" class="chip neutral">Solo tú</span>
-                        </div>
-                        <button id="leaveBtn" class="btn btn-ghost hidden" style="padding:.25rem .6rem"><i data-lucide="log-out" class="w-3.5 h-3.5"></i><span id="leaveLabel">Salir</span></button>
-                    </div>
-                    <ul id="rosterList" class="max-h-36 overflow-y-auto p-2 space-y-1 text-xs"></ul>
-                    <div id="hostSettings" class="bt px-4 py-2.5 space-y-2">
-                        <label class="switch"><span>Aprobar cada conexión nueva</span><input type="checkbox" id="optApprove"></label>
-                        <label class="switch"><span>Solo lectura para invitados</span><input type="checkbox" id="optReadonly"></label>
-                        <div id="banWrap" class="hidden pt-1">
-                            <p class="text-[11px] font-semibold muted mb-1">Baneados</p>
-                            <ul id="banList" class="space-y-1 max-h-24 overflow-y-auto"></ul>
-                        </div>
-                    </div>
-                </section>
-
-                <!-- Chat -->
-                <section class="card rounded-xl flex flex-col overflow-hidden shadow-sm flex-1 min-h-[420px] lg:min-h-0" aria-label="Chat">
+            <!-- Panel derecho: chat -->
+                <section id="chatPanel" class="card rounded-xl flex flex-col overflow-hidden" aria-label="Chat">
                     <div class="sub bb px-3 py-2 flex items-center justify-between shrink-0 gap-2">
                         <div class="flex items-center gap-2">
                             <i data-lucide="message-square" class="w-4 h-4" style="color: var(--ok)"></i>
@@ -1517,13 +1598,15 @@ FIN DE LA GUÍA
                         <button type="submit" id="sendMsgBtn" class="btn btn-primary" style="padding:.5rem .8rem" aria-label="Enviar mensaje" disabled><i data-lucide="send" class="w-4 h-4"></i></button>
                     </form>
                 </section>
-            </div>
         </div>
     </main>
 
-    <footer class="bt py-3 px-4 text-center text-xs muted mt-auto">
-        <p>P2P Workspace Pro • WebRTC + Yjs • Sin backend • Tus datos solo viven en los navegadores conectados</p>
-    </footer>
+    <!-- ===== Navegación inferior (solo móvil/tablet): cambia de panel ===== -->
+    <div id="mobileNav" class="card" role="tablist" aria-label="Paneles">
+        <button type="button" class="btn btn-ghost pane-tab" role="tab" data-pane="room"><i data-lucide="users" class="w-5 h-5"></i><span>Sala</span></button>
+        <button type="button" class="btn btn-ghost pane-tab" role="tab" data-pane="editor"><i data-lucide="file-text" class="w-5 h-5"></i><span>Editor</span></button>
+        <button type="button" class="btn btn-ghost pane-tab" role="tab" data-pane="chat"><i data-lucide="message-square" class="w-5 h-5"></i><span>Chat</span><span id="navChatBadge" class="pane-badge hidden" aria-live="polite">0</span></button>
+    </div>
 
     <!-- ===== Diálogo genérico ===== -->
     <div id="dlg" class="hidden fixed inset-0 z-[60] backdrop flex items-center justify-center p-4">
@@ -3235,6 +3318,49 @@ FIN DE LA GUÍA
         if (Y) bindDoc(saved);
         else showToast('No se pudo cargar Yjs: sincronización básica (el último en escribir gana).', 'info');
         initPeer();
+    })();
+    </script>
+
+    <!-- Estructura: paneles móviles, columnas plegables y altura de cabecera. No toca la lógica P2P. -->
+    <script>
+    (() => {
+        const $ = (id) => document.getElementById(id);
+        const LS = { get(k, d) { try { const v = localStorage.getItem(k); return v === null ? d : v; } catch { return d; } }, set(k, v) { try { localStorage.setItem(k, v); } catch {} } };
+        const grid = $('mainGrid'), header = document.querySelector('.app-header'), mq = window.matchMedia('(min-width: 1024px)');
+
+        // Altura real de la cabecera (la usan los paneles móviles).
+        const setH = () => document.documentElement.style.setProperty('--header-h', header.offsetHeight + 'px');
+        if ('ResizeObserver' in window) new ResizeObserver(setH).observe(header); setH();
+
+        // --- Móvil/tablet: un panel a la vez ---
+        let pane = LS.get('p2p_pane', 'room'), unread = 0;
+        if (!['room', 'editor', 'chat'].includes(pane)) pane = 'room';
+        function paintBadge() { const b = $('navChatBadge'); b.textContent = unread > 9 ? '9+' : String(unread); b.classList.toggle('hidden', !unread); }
+        function setPane(p) {
+            pane = p; grid.dataset.pane = p;
+            document.querySelectorAll('.pane-tab').forEach((b) => { const on = b.dataset.pane === p; b.classList.toggle('active', on); b.setAttribute('aria-selected', String(on)); });
+            if (p === 'chat') { unread = 0; paintBadge(); const c = $('chatContainer'); c.scrollTop = c.scrollHeight; }
+            LS.set('p2p_pane', p);
+        }
+        document.querySelectorAll('.pane-tab').forEach((b) => b.addEventListener('click', () => setPane(b.dataset.pane)));
+        // Mensajes nuevos de otras personas mientras el chat no está a la vista.
+        new MutationObserver((muts) => {
+            if (mq.matches || pane === 'chat') return;
+            for (const m of muts) for (const n of m.addedNodes) if (n.nodeType === 1 && n.classList.contains('msg') && !n.querySelector('.msg-row.mine')) unread++;
+            paintBadge();
+        }).observe($('chatContainer'), { childList: true });
+        setPane(pane);
+
+        // --- Escritorio: ocultar/mostrar panel de sala y chat ---
+        const sb = $('toggleSideBtn'), ch = $('toggleChatBtn');
+        function paintCols() {
+            const sideOn = LS.get('p2p_sb', '1') !== '0', chatOn = LS.get('p2p_chat', '1') !== '0';
+            grid.classList.toggle('sb-off', !sideOn); grid.classList.toggle('chat-off', !chatOn);
+            sb.setAttribute('aria-pressed', String(sideOn)); ch.setAttribute('aria-pressed', String(chatOn));
+        }
+        sb.addEventListener('click', () => { LS.set('p2p_sb', LS.get('p2p_sb', '1') === '0' ? '1' : '0'); paintCols(); });
+        ch.addEventListener('click', () => { LS.set('p2p_chat', LS.get('p2p_chat', '1') === '0' ? '1' : '0'); paintCols(); });
+        paintCols();
     })();
     </script>
 </body>
